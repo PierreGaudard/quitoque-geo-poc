@@ -1,74 +1,72 @@
-# Quitoque - POC d'optimisation GEO
+# Quitoque - POC Optimisation GEO
 
-POC de refonte d'un article du blog Quitoque selon les bonnes pratiques GEO (Generative Engine Optimization), pour maximiser la citation par les moteurs IA (ChatGPT, Perplexity, Google AI Overviews, Gemini).
+POC qui démontre l'ajout d'éléments GEO (Generative Engine Optimization) dans un article du blog Quitoque, **sans toucher au reste du contenu ni au design original**.
 
 **Article de référence** : [9 recettes de grand-mère](https://www.quitoque.fr/blog/article/recettes-grand-mere-plats-traditionnels)
 
 ## Aperçu en ligne
 
-L'article optimisé est consultable directement via GitHub Pages : `index.html`
+L'article avec les éléments GEO est consultable directement via GitHub Pages.
 
-## Les 5 piliers GEO appliqués
+## Principe
 
-### 1. Title et méta description optimisés
-- **Avant** : "9 recettes de grand-mère : des plats réconfortants et authentiques | Quitoque"
-- **Après** : "Recettes de grand-mère : 9 plats traditionnels faciles à cuisiner | Quitoque"
-- La nouvelle formulation place le mot-clé principal en début et reste descriptive.
+Le HTML, le CSS et la structure originale du blog Quitoque sont conservés à l'identique. Seuls **4 éléments GEO ont été injectés** pour maximiser la citation par les moteurs IA (ChatGPT, Perplexity, Google AI Overviews, Gemini).
 
-### 2. Answer-First (les 300 premiers mots)
-Ajout d'un encart "Réponse rapide" en début d'article qui répond directement à la question principale en 3-5 phrases, avec liste structurée des 9 recettes par catégorie. Ce format est massivement extrait par les LLMs lors de la génération de réponses.
+## Les 4 éléments GEO ajoutés
 
-### 3. FAQ structurée GEO
-Ajout d'une section FAQ avec 6 questions fréquentes et leurs réponses synthétiques :
-- Qu'est-ce qu'une recette de grand-mère ?
-- Quels sont les plats traditionnels français les plus emblématiques ?
-- Comment réussir un hachis parmentier maison ?
-- Quels ingrédients de base pour la cuisine traditionnelle ?
-- Combien de temps faut-il pour cuisiner un plat de grand-mère ?
-- Comment recevoir les ingrédients pour cuisiner ces recettes ?
+### 1. Encart "En bref" (Answer-First)
+- **Position** : début de l'article, juste avant la section "Les entrées de grand-mère"
+- **Style** : bandeau vert clair avec bordure verte à gauche
+- **Contenu** : réponse synthétique à la question principale + liste structurée des 9 recettes par catégorie
+- **Objectif** : les LLMs extraient en priorité ce qui est en haut de l'article et formaté comme une réponse directe
 
-Chaque question est intégrée dans un schema markup `FAQPage` (JSON-LD), ce qui multiplie par 3 les chances d'être citée par les moteurs IA.
+### 2. Tableau récapitulatif des 9 recettes
+- **Position** : juste après l'encart "En bref"
+- **Contenu** : recette / catégorie / temps / difficulté / nombre de personnes
+- **Objectif** : les tableaux comparatifs sont massivement repris par les LLMs lors de requêtes de type "comparer", "quel est le meilleur...", "liste de..."
 
-### 4. Tableaux comparatifs et blocs d'info
-- Tableau récapitulatif des 9 recettes (catégorie, temps, difficulté, nombre de personnes), idéal pour les requêtes comparatives
-- Encarts "Ingrédients clés" et "L'astuce de grand-mère" pour chaque recette, en formats extractibles
+### 3. Liste à puces "Les ingrédients incontournables"
+- **Position** : juste après le tableau, avant la première section recette
+- **Style** : encart crème avec liste sur 2 colonnes
+- **Contenu** : 8 ingrédients de base de la cuisine traditionnelle
+- **Objectif** : les listes structurées sont parfaitement extractibles par les moteurs IA et améliorent la lisibilité pour le lecteur
 
-### 5. Listes à puces et structure extractible
-- Sommaire cliquable au début (table des matières)
-- Liste des ingrédients en bullet points pour chaque recette
-- Liste des arguments Quitoque en bullet points dans le CTA
-- Conversion des paragraphes denses en formats structurés
+### 4. FAQ classique
+- **Position** : fin de l'article, juste avant le formulaire de newsletter Quitoque
+- **Contenu** : 6 questions/réponses sur les recettes de grand-mère
+- **Schema markup JSON-LD `FAQPage`** intégré dans la page
+- **Objectif** : les FAQ avec schema markup sont 3x plus citées par les moteurs IA. Elles déclenchent aussi l'affichage des Q/R dans les SERP Google classiques
 
-## Schema.org JSON-LD ajoutés
+## Pourquoi cette approche
 
-- `Article` (avec author, datePublished, image, publisher)
-- `FAQPage` (les 6 Q/R en format extractible)
-- `BreadcrumbList` (fil d'Ariane structuré)
+L'article actuel du blog Quitoque génère un trafic massif mais n'est pas optimisé pour la nouvelle vague des moteurs IA. Avec l'arrivée de ChatGPT Search, Perplexity et Google AI Overviews, le SEO classique ne suffit plus pour rester visible.
+
+Ce POC démontre qu'on peut intégrer 4 éléments GEO efficaces sans dégrader l'expérience de lecture, en respectant la charte graphique existante.
 
 ## Structure des fichiers
 
 ```
 quitoque-geo-poc/
-├── index.html       # Article optimisé GEO
-├── style.css        # CSS clean inspiré de la palette Quitoque
+├── index.html       # Article original + 4 éléments GEO injectés
+├── assets/          # Tous les fichiers CSS, JS, images du blog Quitoque
+├── .nojekyll        # Désactive Jekyll pour servir les fichiers en statique
 └── README.md        # Ce fichier
 ```
 
-## Gain attendu
+## Différences vs la version Conversion
 
-L'optimisation GEO appliquée à cet article devrait :
-- Augmenter la probabilité de citation dans les réponses ChatGPT, Perplexity, Google AI Overviews
-- Améliorer le CTR organique grâce au schema markup (FAQ visibles dans les SERP)
-- Réduire le bounce rate grâce à la structure Answer-First
-- Augmenter la conversion blog → panier grâce au CTA enrichi et au maillage interne
+Ce POC est complémentaire au repo `quitoque-conversion-poc` :
+- **`quitoque-conversion-poc`** : ajout de CTAs visuels pour pousser à la conversion vers les paniers
+- **`quitoque-geo-poc`** (ce repo) : ajout d'éléments structurels pour optimiser la citation par les moteurs IA
 
-## Méthodologie de déploiement à grande échelle
+Les deux approches peuvent être combinées en production sur le même article.
 
-Cette approche peut être généralisée à l'ensemble du blog Quitoque (1000+ articles) via :
-1. Un template GEO appliqué aux articles existants
-2. Un audit de cannibalisation pour fusionner les doublons sémantiques
-3. L'enrichissement saisonnier des contenus (Noël, Saint-Valentin, BBQ été, etc.)
-4. L'intégration systématique d'une FAQ et d'un encart Answer-First sur chaque template article
+## Bonus inclus
+
+- Schema markup JSON-LD `FAQPage` (extractible par les moteurs IA)
+- Listes à puces structurées (formats favorisés par les LLMs)
+- Tableau comparatif (extractible)
+- Encart Answer-First en début de page
 
 ---
 

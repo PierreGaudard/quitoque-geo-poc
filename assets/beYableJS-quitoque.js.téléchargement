@@ -1,0 +1,428 @@
+"use strict"; /*24.639038061718380955*/
+var by_data = by_data || {};
+var beYableDomain = "quitoque.fr";
+var isActive = true;
+
+if (isActive) {
+
+    function getP(n, url = window.location.href) {
+        n = n.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + n + "(=([^&#]*)|&|#|$)"),
+            res = regex.exec(url);
+        if (!res) return null;
+        if (!res[2]) return "";
+        return decodeURIComponent(res[2].replace(/\+/g, " "));
+    }
+    function getF() {
+        var err = new Error(), src, lstStckFrm = new RegExp(/.+\/(.*?):\d+(:\d+)*$/), crrntStckFrm = new RegExp(/getScriptName \(.+\/(.*):\d+:\d+\)/);
+        if ((src = lstStckFrm.exec(err.stack.trim())) && src[1] !== "") return src[1];
+        else if ((src = crrntStckFrm.exec(err.stack.trim()))) return src[1];
+        else if (err.fileName != undefined) return err.fileName;
+        return "";
+    }
+    function loadS(sc) {
+        var yattune = document.createElement("script");
+        yattune.type = "text/javascript";
+        yattune.async = true;
+        yattune.src = ("https:" == document.location.protocol ? "https://" : "http://") + "tag.beyable.com/api/" + sc;
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(yattune, s);
+    }
+
+    (function () {
+        if (getP("by_dbg") === "prvw") {
+            var f = getF();
+            if (f && f.indexOf("_preview") === -1) {
+                loadS(f.slice(0, -3) + "_preview.js");
+                return;
+            }
+        }
+
+        if (document.readyState == "loading") {
+            document.addEventListener("DOMContentLoaded", function () {
+                by_Main();
+            });
+        } else {
+            by_Main();
+        }
+
+        function by_Main() {
+
+            var preprod = window.location.hostname.includes('quitoque.tech');
+            if (preprod) beYableDomain = 'quitoque.tech';
+
+            by_data.bjs_urltags = [];
+
+            var previous_url = localStorage.getItem('beyable-previousurl');
+            if (!previous_url || previous_url !== window.location.href) localStorage.setItem('beyable-previousurl', window.location.href);
+
+            var session = by_GetCookie(beYableKey);
+            var sessionId = "";
+            if (session != "") sessionId = session.split(".")[0];
+
+            var urls = localStorage.getItem("beyable-sessionsWithInfos");
+            var visits = [];
+            if (urls) {
+                var viewlivraison = false;
+                var viewIncriptionReussie = false;
+                visits = JSON.parse(urls);
+                var nbvisits = visits.length;
+                for (var j = 0; j < nbvisits; j++) {
+                    if (visits[j].SessionId == sessionId) continue;
+                    var us = visits[j].VisitedPages;
+                    var nbpages = us.length;
+
+                    for (var k = 0; k < nbpages; k++) {
+                        if (us[k].Url.indexOf("informations-livraison") > -1) viewlivraison = true;
+                        if (us[k].Url.indexOf("abonnement/inscription-reussie") > -1) viewIncriptionReussie = true;
+                    }
+                }
+
+                if (viewlivraison) by_data.bjs_urltags.push("view_livraison=1");
+                if (viewIncriptionReussie) by_data.bjs_urltags.push("view_incription_reussie=1");
+
+            }
+
+            if (typeof dataLayer !== "undefined") {
+
+                var nb = dataLayer.length;
+
+                for (var i = 0; i < nb; i++) {
+                    var d = dataLayer[i];
+                    if (d.user_id && d.user_id != "") {
+                        by_CreateCookie("beyable-rgr", 1, 14);
+                    }
+                }
+
+                by_data.bjs_urltype = by_GiveUrlType();
+
+                if (by_data.bjs_urltype == "H") {
+                    var easy_recipe = document.getElementById("recettes");
+                    if (easy_recipe) {
+                        var recipeData = {};
+                        var title = easy_recipe.querySelector("h2.component-home-title__title");
+                        var items = easy_recipe.querySelectorAll(".carousel-item .row > div");
+
+                        if (title && items.length) {
+                            var products = [];
+                            for (var i = 0; i < items.length; i++) {
+                                var item = items[i];
+                                var product = {};
+                                var linkElement = item.querySelector("a");
+                                product.link = linkElement ? linkElement.getAttribute("href") : "";
+
+                                var imgElement = item.querySelector("picture img");
+                                if (imgElement) product.imageUrl = imgElement.getAttribute("src");
+
+                                var nameElement = item.querySelector(".fs-M.fw-bold.lh-M.mb-XS");
+                                if (nameElement) product.name = nameElement.textContent.trim();
+
+                                var descriptionElement = item.querySelector(".home-component-recette-card__body__description");
+                                if (descriptionElement) product.description = descriptionElement.textContent.trim();
+
+                                var timeElement = item.querySelector(".home-component-recette-card__timer div");
+                                if (timeElement) product.time = timeElement.textContent.trim();
+
+                                var nutriscoreImgElement = item.querySelector('.home-component-recette-card__body img[alt^="nutriscore"]');
+                                if (nutriscoreImgElement) {
+                                    product.nutriscoreImageUrl = nutriscoreImgElement.getAttribute("src");
+                                    product.nutriscoreValue = nutriscoreImgElement.getAttribute("alt").replace("nutriscore ", "");
+                                }
+                                products.push(product);
+                            }
+
+                            if (products.length) {
+                                recipeData.products = products;
+                                recipeData.title = title.textContent.replace(/\s+/g, " ").trim();
+                                sessionStorage.setItem("beyable-sliderEasyRecipes", JSON.stringify(recipeData));
+                            }
+
+                        }
+                    }
+                }
+
+                if (by_data.bjs_urltype == "FP") {
+                    for (var i = nb - 1; i >= 0; i--) {
+                        var d = dataLayer[i];
+                        if (d.event && d.event == "Product Details_LoggedUser" && d.ecommerce && d.ecommerce.detail && d.ecommerce.detail.products && d.ecommerce.detail.products[0]) {
+                            var p = d.ecommerce.detail.products[0];
+                            by_data.bjs_urlid = p.id;
+                            by_data.bjs_urlval1 = p.price;
+                            by_data.bjs_urlval2 = p.url_photo;
+                            by_data.bjs_urlval5 = p.name;
+                            var link = document.querySelector(".ReactModal__Content a");
+                            if (link && link.href) by_data.bjs_urlval4 = link.href;
+                            if (p.brand) by_data.bjs_urltags.push("brand=" + p.brand);
+                            if (p.category) by_data.bjs_urltags.push("category=" + p.category);
+                        }
+                    }
+                }
+
+                if (by_data.bjs_urltype == "B") {
+                    for (var i = nb - 1; i >= 0; i--) {
+                        var d = dataLayer[i];
+                        if (d.event && (d.event == "ec::begin_checkout" || d.event == "ec::add_shipping_info")) {
+                            by_CreateCookie("beyable-cart", d.order_net_amount_ttc / 100, 1 / 24);
+
+                            var cartd = "";
+                            if (d.items && d.items.length > 0) {
+                                var nbp = d.items.length;
+                                for (var j = 0; j < nbp; j++) {
+                                    var p = d.items[j];
+                                    var temp = p.item_id + "$ci$" + p.price + "$ci$" + p.quantity + "$ci$$ci$" + "" + "$ci$$ci$" + p.item_id + "$beyable_ci$";
+                                    cartd = cartd + temp;
+                                }
+
+                                by_CreateCookie("beyable-cartd", cartd, 1 / 24);
+                            }
+
+                            break;
+                        }
+                    }
+                }
+
+                if (by_data.bjs_urltype == "T") {
+                    try {
+                        by_CreateCookie("beyable-cart", 0, 1 / 24);
+                        by_CreateCookie("beyable-cartd", "", 1 / 24);
+                        by_CreateCookie("beyable-cli", "1", 365);
+
+                        var by_timer = setInterval(function () {
+                            for (var i = dataLayer.length - 1; i >= 0; i--) {
+                                var d = dataLayer[i];
+                                if (d.event && d.event == "ec::purchase" && d.page_title && d.page_title == "confirmation") {
+                                    clearInterval(by_timer);
+                                    var mnt = parseInt(d.order_net_amount_ttc) / 100;
+
+                                    var qtyprd = 0;
+                                    var l = d.items.length;
+                                    for (var k = 0; k < l; k++) {
+                                        qtyprd = qtyprd + parseInt(d.items[k].quantity);
+                                    }
+
+                                    var reference = d.transaction_id;
+
+                                    var session = by_GetCookie(beYableKey);
+                                    if (session != "") {
+                                        var sessionId = session.split(".")[0];
+                                        var conv = mnt + "$bey$" + qtyprd + "$bey$0$bey$" + reference + "$bey$" + "" + "$bey$" + "" + "$bey$" + "Valide";
+                                        var i = new Image(1, 1);
+                                        i.src = "//front.activation.beyable.com/api/v2/displays?beyable_key=" + beYableKey + "&operation=update_target&answerId=" + conv + "&taglog=" + sessionId + "&fork=&method=POST";
+                                        document.body.appendChild(i);
+                                    }
+
+                                    break;
+                                }
+                            }
+                        }, 250);
+                    } catch (e) { }
+                }
+
+                var properties = Object.getOwnPropertyNames(window);
+                var pl = properties.length;
+                for (var kp = 0; kp < pl; kp++) {
+                    var property = properties[kp];
+                    if (property.startsWith("by_r_") || property.startsWith("condition")) {
+                        window[property] = null;
+                    }
+                }
+
+                // Enregistrer les microobjectifs
+                window.addEventListener("BY_loaded", function (e) {
+
+                    var data = e.detail.data;
+
+                    if (location.href.indexOf("/parrainage") > -1) {
+
+                        by_SaveEvent(data, "visiteparrainage");
+                        var button = document.querySelector("button[data-qa-selector='SponsorshipSharingSendButton']");
+                        if (button) {
+                            button.addEventListener("click", function () {
+                                by_SaveEvent(data, "emailparrainageenvoye");
+                            });
+                        }
+
+                    }
+
+                    if (location.href.indexOf("/carte-cadeau") > -1) {
+
+                        by_SaveEvent(data, "formulaire_carte_cadeau");
+                        var carte_cadeau_interval = setInterval(check_button, 1000);
+
+                        function check_button() {
+                            var button = document.querySelector('button[data-qa-selector="PaymentFormSubmitButton"]');
+                            if (button) {
+                                clearInterval(carte_cadeau_interval);
+                                button.addEventListener("click", function () {
+                                    by_SaveEvent(data, "envoi_carte_cadeau");
+                                });
+                            }
+                        }
+
+                    }
+
+                    if (location.href.indexOf('/commander/inscription') > -1) by_SaveEvent(data, "step_1_start_validated");
+                    if (previous_url) {
+                        if (location.href.indexOf('/commander/calendrier') > -1 && previous_url.indexOf('/commander/inscription') > -1) by_SaveEvent(data, "step_2_registration_validated");
+                        if (location.href.indexOf('/commander/selection/indispensables') > -1 && previous_url.indexOf('/commander/selection/recettes') > -1) by_SaveEvent(data, "step_3_recipes_validated");
+                        if (location.href.indexOf('/commander/livraison') > -1 && previous_url.indexOf('/commander/selection/indispensables') > -1) by_SaveEvent(data, "step_4_essentials_validated");
+                        if (location.href.indexOf('/commander/paiement') > -1 && previous_url.indexOf('/commander/livraison') > -1) by_SaveEvent(data, "step_5_shipping_validated");
+                        if (location.href.indexOf('/commander/confirmation') > -1 && (previous_url.indexOf('/commander/paiement') > -1 || previous_url.indexOf('/payment/') > -1)) by_SaveEvent(data, "step_6_payment_validated");
+                    }
+
+                });
+            }
+
+            var beforeLoadEvent = new Event("BY_before_load");
+            window.dispatchEvent(beforeLoadEvent);
+
+            loadS("beYableJSv2.js");
+        }
+
+        function by_GiveUrlType() {
+            var res = "G";
+
+            var path = location.pathname;
+            if (location.href.indexOf("https://www.quitoque.fr/paniers/") != -1 && location.search.indexOf("?product=recipe-") != -1) return "FP";
+            switch (path) {
+                case "/":
+                    res = "H";
+                    break;
+                case "/votre-premier-panier":
+                case "/les-indispensables":
+                case "/commander/personnalisation":
+                case "/commander/selection/recettes":
+                case "/commander/selection/indispensables":
+                    res = "C";
+                    break;
+                case "/informations-livraison":
+                case "/commander/livraison":
+                case "/commander/paiement":
+                    res = "B";
+                    break;
+                case "/abonnement/inscription-reussie":
+                case "/commander/confirmation":
+                    res = "T";
+                    break;
+                default:
+                    break;
+            }
+
+            return res;
+        }
+
+        function by_CreateCookie(name, value, days) {
+            var expires;
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+                expires = "; expires=" + date.toGMTString();
+            } else {
+                expires = "";
+            }
+            document.cookie =
+                name + "=" + value + expires + ";domain=.quitoque.fr; path=/";
+        }
+
+        function by_GetCookie(c_name) {
+            var cookies = document.cookie;
+            if (cookies.length > 0) {
+                var c_start = cookies.indexOf(c_name + "=");
+                if (c_start != -1) {
+                    c_start = c_start + c_name.length + 1;
+                    var c_end = cookies.indexOf(";", c_start);
+                    if (c_end == -1) {
+                        c_end = cookies.length;
+                    }
+                    return unescape(cookies.substring(c_start, c_end));
+                }
+            }
+            return "";
+        }
+
+        function by_SaveEvent(data, name) {
+            var tenant = typeof beYableTenant !== "undefined" ? beYableTenant : "";
+            var conv = "event$bey$" + name + "$bey$" + data.MustBeDisplayed + "$bey$" + tenant;
+            var i = new Image(1, 1);
+            i.src = "https://front.activation.beyable.com/api/v2/displays?beyable_key=" + beYableKey + "&operation=update_lead&answerId=" + conv + "&taglog=" + data.SessionId.split(".")[0] + "&fork=&method=POST";
+            document.body.appendChild(i);
+        }
+
+    })();
+}
+var byPalHelper = (function () {
+    var isInit = false;
+    var isReset = false;
+    var headerRoot;
+    var headerOptions = {};
+    var quitoqueHeader;
+
+    var headerResize = function (el, options, pusher, root) {
+        headerRoot = root;
+        headerOptions = options;
+
+        if (!isInit) {
+            headerInit();
+            isInit = true;
+        }
+        headerRefresh();
+    };
+
+    var headerInit = function () {     
+        quitoqueHeader = document.querySelector(".checkout-header") || document.querySelector(".main-header");
+        if (!quitoqueHeader) return;
+
+        window.addEventListener("scroll", headerRefresh);
+
+        var images = headerRoot.querySelectorAll("img");
+        for (var i = 0; i < images.length; i++) {
+            images[i].addEventListener("load", headerRefresh);
+        }
+    };
+
+    var headerRefresh = function () {
+        if (isReset) return;
+        if (headerOptions.isFooter) return;
+        if (!headerOptions.isSticky) return;
+        if (!quitoqueHeader) return;
+
+        const beyableCampaignHeight = headerRoot.offsetHeight;
+
+        const quitoqueHeaderHeight = quitoqueHeader.offsetHeight;
+        quitoqueHeader.style.width = "100%";
+        document.body.style.paddingTop = quitoqueHeaderHeight + "px";
+
+        if (window.innerWidth < 768) {
+            quitoqueHeader.style.position = "fixed";
+            quitoqueHeader.style.top = beyableCampaignHeight + "px";
+        } else {
+            quitoqueHeader.style.top = beyableCampaignHeight + "px";
+
+            if (quitoqueHeader.classList.contains("sticky-top")) {
+                quitoqueHeader.style.position = "fixed";
+                headerRoot.style.position = "fixed";
+            } else {
+                quitoqueHeader.style.position = "absolute";
+                headerRoot.style.position = "absolute";
+            }
+        }
+    };
+
+    var headerReset = function (el, options) {
+        isReset = true;
+        window.removeEventListener("scroll", headerRefresh);
+
+        quitoqueHeader.style.position = "sticky";
+        quitoqueHeader.style.top = "0px";
+
+        document.body.style.paddingTop = "0px";
+    };
+
+    return {
+        headerResize: headerResize,
+        headerReset: headerReset,
+    };
+})();
+
+var byPalHeaderResize = byPalHelper.headerResize;
+var byPalHeaderReset = byPalHelper.headerReset;
