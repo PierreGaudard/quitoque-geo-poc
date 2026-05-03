@@ -1,6 +1,6 @@
 /* ============================================
    Quitoque GEO POC - Article optimisé GEO
-   Design system : palette Quitoque
+   Reproduction fidèle du style Quitoque
    ============================================ */
 
 :root {
@@ -33,8 +33,14 @@ body {
   padding: 0 24px;
 }
 
+.container-wide {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
 /* ============================================
-   HEADER
+   HEADER GLOBAL QUITOQUE
    ============================================ */
 .site-header {
   background: var(--white);
@@ -44,22 +50,26 @@ body {
   top: 0;
   z-index: 100;
 }
-.site-header .container {
+.site-header .container-wide {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1200px;
 }
 .logo {
-  font-size: 24px;
-  font-weight: 800;
-  color: var(--green-primary);
   text-decoration: none;
-  letter-spacing: 1px;
+}
+.logo-text {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--text-dark);
+  letter-spacing: 0.5px;
+}
+.logo-accent {
+  color: var(--green-primary);
 }
 .main-nav {
   display: flex;
-  gap: 28px;
+  gap: 24px;
   align-items: center;
 }
 .main-nav a {
@@ -69,35 +79,57 @@ body {
   font-size: 15px;
   transition: color 0.2s;
 }
-.main-nav a:hover { color: var(--green-primary); }
+.main-nav a:hover,
+.main-nav a.active { color: var(--green-primary); }
+.btn-outline {
+  border: 1.5px solid var(--text-dark);
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+}
 .btn-primary {
-  background: var(--green-primary);
+  background: var(--orange-primary);
   color: var(--white) !important;
   padding: 10px 20px;
   border-radius: 6px;
   font-weight: 600;
 }
 .btn-primary:hover {
-  background: var(--green-dark);
+  background: #c46f1f;
   color: var(--white) !important;
 }
 
 /* ============================================
-   BREADCRUMB
+   NAV CATEGORIES BLOG (style Quitoque exact)
    ============================================ */
-.breadcrumb {
-  background: var(--bg-light);
-  padding: 12px 0;
-  font-size: 13px;
+.blog-categories-nav {
+  background: var(--white);
+  border-bottom: 1px solid var(--border-light);
+  padding: 16px 0;
 }
-.breadcrumb a {
-  color: var(--text-muted);
+.category-articles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-start;
+}
+.category-articles .item {
+  display: inline-block;
+  padding: 6px 14px;
+  background: var(--white);
+  color: var(--text-dark);
+  border: 1px solid var(--border-light);
+  border-radius: 20px;
   text-decoration: none;
+  font-size: 13px;
+  font-weight: 400;
+  transition: all 0.2s;
+  white-space: nowrap;
 }
-.breadcrumb a:hover { color: var(--green-primary); }
-.breadcrumb span {
-  color: var(--text-muted);
-  margin: 0 8px;
+.category-articles .item:hover {
+  background: var(--green-primary);
+  color: var(--white);
+  border-color: var(--green-primary);
 }
 
 /* ============================================
@@ -107,48 +139,43 @@ body {
   padding: 40px 0 60px;
 }
 
+/* Header article (style Quitoque exact) */
 .article-header {
+  margin-bottom: 30px;
+}
+.article-header.text-center {
   text-align: center;
-  margin-bottom: 40px;
 }
-
-.categories {
-  margin-bottom: 18px;
-}
-.categories a {
-  display: inline-block;
-  background: var(--green-light);
-  color: var(--green-dark);
-  padding: 4px 14px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
-  text-decoration: none;
-  margin: 2px 4px;
-  transition: background 0.2s;
-}
-.categories a:hover { background: var(--green-primary); color: var(--white); }
-
-.article-header h1 {
-  font-size: 38px;
+.article-header .title {
+  font-size: 36px;
   line-height: 1.2;
   color: var(--text-dark);
-  margin-bottom: 14px;
+  margin-bottom: 16px;
   font-weight: 800;
   letter-spacing: -0.5px;
 }
-
-.meta {
+.article-header .date-categories {
   color: var(--text-muted);
   font-size: 14px;
-  margin-bottom: 30px;
+  margin-bottom: 24px;
 }
-
-.hero-image {
+.article-header .date-categories span {
+  margin: 0 4px;
+}
+.article-header .date-categories a {
+  color: var(--green-primary);
+  text-decoration: none;
+  margin: 0 4px;
+  font-weight: 500;
+}
+.article-header .date-categories a:hover {
+  text-decoration: underline;
+}
+.article-header .hero-image {
   width: 100%;
   height: auto;
-  border-radius: 12px;
-  margin-top: 20px;
+  border-radius: 8px;
+  margin-top: 16px;
 }
 
 /* ============================================
@@ -202,36 +229,6 @@ body {
   color: var(--green-dark);
   font-weight: 700;
 }
-
-/* ============================================
-   TABLE OF CONTENTS
-   ============================================ */
-.toc {
-  background: var(--bg-light);
-  border-radius: 8px;
-  padding: 24px 32px;
-  margin: 30px 0;
-}
-.toc h2 {
-  font-size: 13px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: 14px;
-  font-weight: 700;
-}
-.toc ol {
-  padding-left: 22px;
-}
-.toc li {
-  padding: 5px 0;
-}
-.toc a {
-  color: var(--text-dark);
-  text-decoration: none;
-  font-weight: 500;
-}
-.toc a:hover { color: var(--green-primary); }
 
 /* ============================================
    SECTIONS & RECIPES
@@ -329,14 +326,15 @@ body {
 /* ============================================
    COMPARISON TABLE (GEO best practice)
    ============================================ */
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
 .comparison-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 20px 0;
   background: var(--white);
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 .comparison-table thead {
   background: var(--green-primary);
@@ -354,6 +352,14 @@ body {
   padding: 14px 16px;
   border-bottom: 1px solid var(--border-light);
   font-size: 15px;
+}
+.comparison-table td a {
+  color: var(--green-primary);
+  text-decoration: none;
+  font-weight: 600;
+}
+.comparison-table td a:hover {
+  text-decoration: underline;
 }
 .comparison-table tbody tr:hover {
   background: var(--bg-light);
@@ -477,13 +483,15 @@ body {
    RESPONSIVE
    ============================================ */
 @media (max-width: 768px) {
-  .article-header h1 { font-size: 28px; }
+  .article-header .title { font-size: 26px; }
   .section h2 { font-size: 22px; }
   .recipe h3 { font-size: 19px; }
-  .answer-box, .toc, .recipe, .cta-box, .faq-item { padding: 20px; }
+  .answer-box, .recipe, .cta-box, .faq-item { padding: 20px; }
   .main-nav { display: none; }
   .recipe-meta { flex-direction: column; gap: 6px; }
   .cta-bullets { grid-template-columns: 1fr; }
   .comparison-table { font-size: 13px; }
   .comparison-table th, .comparison-table td { padding: 10px 8px; }
+  .category-articles { gap: 6px; }
+  .category-articles .item { font-size: 12px; padding: 5px 10px; }
 }

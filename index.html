@@ -108,39 +108,56 @@
 
 <body>
 
+<!-- HEADER GLOBAL QUITOQUE -->
 <header class="site-header">
-  <div class="container">
-    <a href="https://www.quitoque.fr" class="logo">QUITOQUE</a>
+  <div class="container-wide">
+    <a href="https://www.quitoque.fr" class="logo">
+      <span class="logo-text">QUI<span class="logo-accent">TOQUE</span></span>
+    </a>
     <nav class="main-nav">
-      <a href="#">Nos paniers</a>
-      <a href="#">Au menu</a>
-      <a href="#">Blog</a>
-      <a href="#" class="btn-primary">Commander</a>
+      <a href="https://www.quitoque.fr/nos-paniers">Nos paniers</a>
+      <a href="https://www.quitoque.fr/au-menu">Au menu</a>
+      <a href="https://www.quitoque.fr/blog" class="active">Blog</a>
+      <a href="https://www.quitoque.fr/login" class="btn-outline">Me connecter</a>
+      <a href="https://www.quitoque.fr/commander" class="btn-primary">Je m'abonne</a>
     </nav>
   </div>
 </header>
 
-<nav class="breadcrumb">
-  <div class="container">
-    <a href="https://www.quitoque.fr">Accueil</a>
-    <span>/</span>
-    <a href="https://www.quitoque.fr/blog">Blog</a>
-    <span>/</span>
-    <span>Recettes traditionnelles</span>
+<!-- NAV CATEGORIES BLOG -->
+<nav class="blog-categories-nav">
+  <div class="container-wide">
+    <div class="category-articles">
+      <a href="https://www.quitoque.fr/blog" class="item">Accueil</a>
+      <a href="https://www.quitoque.fr/blog/categorie/recettes-de-saison" class="item">Recettes de saison</a>
+      <a href="https://www.quitoque.fr/blog/categorie/techniques-et-astuces-de-cuisine" class="item">Techniques et astuces de cuisine</a>
+      <a href="https://www.quitoque.fr/blog/categorie/produits-de-saison" class="item">Produits de saison</a>
+      <a href="https://www.quitoque.fr/blog/categorie/recettes-du-monde" class="item">Recettes du monde</a>
+      <a href="https://www.quitoque.fr/blog/categorie/bien-manger-au-quotidien" class="item">Bien manger au quotidien</a>
+      <a href="https://www.quitoque.fr/blog/categorie/cuisiner-en-famille" class="item">Cuisiner en famille</a>
+      <a href="https://www.quitoque.fr/blog/categorie/recettes-de-dessert" class="item">Recettes de dessert</a>
+      <a href="https://www.quitoque.fr/blog/categorie/actualites" class="item">Actualités</a>
+      <a href="https://www.quitoque.fr/blog/categorie/pour-une-alimentation-plus-responsable" class="item">Pour une alimentation plus responsable</a>
+      <a href="https://www.quitoque.fr/blog/categorie/batch-cooking" class="item">Batch cooking</a>
+      <a href="https://www.quitoque.fr/blog/categorie/nos-favoris" class="item">Nos favoris</a>
+    </div>
   </div>
 </nav>
 
+<!-- ARTICLE -->
 <article class="article">
   <div class="container">
 
-    <header class="article-header">
-      <div class="categories">
-        <a href="#">Déguster</a>
-        <a href="#">Nos meilleures recettes</a>
-        <a href="#">Cuisiner en famille</a>
+    <!-- HEADER ARTICLE (style Quitoque exact) -->
+    <header class="article-header text-center">
+      <h1 class="title">Recettes de grand-mère : 9 plats traditionnels faciles à cuisiner</h1>
+      <div class="date-categories">
+        <span>Publié le 19 février 2025</span>
+        <span> | </span>
+        <a href="https://www.quitoque.fr/blog/categorie/deguster">Déguster</a>
+        <a href="https://www.quitoque.fr/blog/categorie/nos-meilleures-recettes">Nos meilleures recettes</a>
+        <a href="https://www.quitoque.fr/blog/categorie/cuisiner-en-famille">Cuisiner en famille</a>
       </div>
-      <h1>Recettes de grand-mère : 9 plats traditionnels faciles à cuisiner</h1>
-      <p class="meta">Publié le 19 février 2025 · Mis à jour le 3 mai 2026 · 8 min de lecture</p>
       <img src="https://www.quitoque.fr/media/cache/blog/d2/26/a3c86d7493f919e8eaf56aded0db.jpg" alt="Plat traditionnel de grand-mère" class="hero-image">
     </header>
 
@@ -156,17 +173,34 @@
       <p class="answer-cta">Toutes ces recettes sont disponibles dans les paniers <a href="https://www.quitoque.fr">Quitoque</a>, avec les ingrédients pré-dosés livrés à domicile.</p>
     </aside>
 
-    <!-- ===== TABLE OF CONTENTS ===== -->
-    <nav class="toc">
-      <h2>Sommaire</h2>
-      <ol>
-        <li><a href="#entrees">Les entrées de grand-mère</a></li>
-        <li><a href="#plats">Les plats familiaux traditionnels</a></li>
-        <li><a href="#desserts">Les desserts d'antan</a></li>
-        <li><a href="#tableau">Tableau récapitulatif des 9 recettes</a></li>
-        <li><a href="#faq">Questions fréquentes</a></li>
-      </ol>
-    </nav>
+    <!-- ===== TABLEAU COMPARATIF (deplace au debut) ===== -->
+    <section id="tableau" class="section">
+      <h2>Tableau récapitulatif des 9 recettes</h2>
+      <div class="table-wrapper">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Recette</th>
+              <th>Catégorie</th>
+              <th>Temps</th>
+              <th>Difficulté</th>
+              <th>Personnes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><a href="#entrees">Soupe à l'oignon gratinée</a></td><td>Entrée</td><td>45 min</td><td>Facile</td><td>4</td></tr>
+            <tr><td><a href="#entrees">Boulettes de viande sauce tomate</a></td><td>Entrée</td><td>40 min</td><td>Facile</td><td>4</td></tr>
+            <tr><td><a href="#entrees">Croquettes de pommes de terre</a></td><td>Entrée</td><td>35 min</td><td>Facile</td><td>4</td></tr>
+            <tr><td><a href="#plats">Hachis parmentier</a></td><td>Plat</td><td>1h</td><td>Facile</td><td>4</td></tr>
+            <tr><td><a href="#plats">Poulet rôti aux légumes d'antan</a></td><td>Plat</td><td>1h15</td><td>Facile</td><td>4</td></tr>
+            <tr><td><a href="#plats">Gratin de pâtes à l'ancienne</a></td><td>Plat</td><td>45 min</td><td>Facile</td><td>4</td></tr>
+            <tr><td><a href="#desserts">Tarte au sucre</a></td><td>Dessert</td><td>30 min + pousse</td><td>Moyen</td><td>6</td></tr>
+            <tr><td><a href="#desserts">Riz au lait vanille-cannelle</a></td><td>Dessert</td><td>45 min</td><td>Facile</td><td>4</td></tr>
+            <tr><td><a href="#desserts">Beignets maison</a></td><td>Dessert</td><td>30 min + pousse</td><td>Moyen</td><td>6</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
     <!-- ===== INTRO ===== -->
     <section class="intro">
@@ -362,33 +396,6 @@
           <li>Sucre glace</li>
         </ul>
       </article>
-    </section>
-
-    <!-- ===== TABLEAU COMPARATIF ===== -->
-    <section id="tableau" class="section">
-      <h2>Tableau récapitulatif des 9 recettes</h2>
-      <table class="comparison-table">
-        <thead>
-          <tr>
-            <th>Recette</th>
-            <th>Catégorie</th>
-            <th>Temps</th>
-            <th>Difficulté</th>
-            <th>Personnes</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>Soupe à l'oignon gratinée</td><td>Entrée</td><td>45 min</td><td>Facile</td><td>4</td></tr>
-          <tr><td>Boulettes de viande sauce tomate</td><td>Entrée</td><td>40 min</td><td>Facile</td><td>4</td></tr>
-          <tr><td>Croquettes de pommes de terre</td><td>Entrée</td><td>35 min</td><td>Facile</td><td>4</td></tr>
-          <tr><td>Hachis parmentier</td><td>Plat</td><td>1h</td><td>Facile</td><td>4</td></tr>
-          <tr><td>Poulet rôti aux légumes d'antan</td><td>Plat</td><td>1h15</td><td>Facile</td><td>4</td></tr>
-          <tr><td>Gratin de pâtes à l'ancienne</td><td>Plat</td><td>45 min</td><td>Facile</td><td>4</td></tr>
-          <tr><td>Tarte au sucre</td><td>Dessert</td><td>30 min + pousse</td><td>Moyen</td><td>6</td></tr>
-          <tr><td>Riz au lait vanille-cannelle</td><td>Dessert</td><td>45 min</td><td>Facile</td><td>4</td></tr>
-          <tr><td>Beignets maison</td><td>Dessert</td><td>30 min + pousse</td><td>Moyen</td><td>6</td></tr>
-        </tbody>
-      </table>
     </section>
 
     <!-- ===== CTA QUITOQUE ===== -->
