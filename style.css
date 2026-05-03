@@ -1,0 +1,489 @@
+/* ============================================
+   Quitoque GEO POC - Article optimisé GEO
+   Design system : palette Quitoque
+   ============================================ */
+
+:root {
+  --green-primary: #27ae60;
+  --green-dark: #1e8449;
+  --orange-primary: #e1822d;
+  --orange-light: #fef3e6;
+  --green-light: #e8f5ec;
+  --text-dark: #2c3e50;
+  --text-body: #444;
+  --text-muted: #777;
+  --bg-light: #f8f9fa;
+  --border-light: #e8eaef;
+  --white: #ffffff;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--text-body);
+  background: var(--white);
+}
+
+.container {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+.site-header {
+  background: var(--white);
+  border-bottom: 1px solid var(--border-light);
+  padding: 18px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.site-header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+}
+.logo {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--green-primary);
+  text-decoration: none;
+  letter-spacing: 1px;
+}
+.main-nav {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+}
+.main-nav a {
+  color: var(--text-dark);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 15px;
+  transition: color 0.2s;
+}
+.main-nav a:hover { color: var(--green-primary); }
+.btn-primary {
+  background: var(--green-primary);
+  color: var(--white) !important;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 600;
+}
+.btn-primary:hover {
+  background: var(--green-dark);
+  color: var(--white) !important;
+}
+
+/* ============================================
+   BREADCRUMB
+   ============================================ */
+.breadcrumb {
+  background: var(--bg-light);
+  padding: 12px 0;
+  font-size: 13px;
+}
+.breadcrumb a {
+  color: var(--text-muted);
+  text-decoration: none;
+}
+.breadcrumb a:hover { color: var(--green-primary); }
+.breadcrumb span {
+  color: var(--text-muted);
+  margin: 0 8px;
+}
+
+/* ============================================
+   ARTICLE
+   ============================================ */
+.article {
+  padding: 40px 0 60px;
+}
+
+.article-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.categories {
+  margin-bottom: 18px;
+}
+.categories a {
+  display: inline-block;
+  background: var(--green-light);
+  color: var(--green-dark);
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  margin: 2px 4px;
+  transition: background 0.2s;
+}
+.categories a:hover { background: var(--green-primary); color: var(--white); }
+
+.article-header h1 {
+  font-size: 38px;
+  line-height: 1.2;
+  color: var(--text-dark);
+  margin-bottom: 14px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.meta {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-bottom: 30px;
+}
+
+.hero-image {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  margin-top: 20px;
+}
+
+/* ============================================
+   ANSWER-FIRST BOX (GEO best practice)
+   ============================================ */
+.answer-box {
+  background: var(--green-light);
+  border-left: 5px solid var(--green-primary);
+  border-radius: 8px;
+  padding: 28px 32px;
+  margin: 40px 0;
+}
+.answer-box h2 {
+  color: var(--green-dark);
+  font-size: 14px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  font-weight: 700;
+}
+.answer-box p {
+  font-size: 16px;
+  margin-bottom: 14px;
+  color: var(--text-dark);
+}
+.answer-list {
+  list-style: none;
+  margin: 16px 0;
+}
+.answer-list li {
+  padding: 8px 0 8px 28px;
+  position: relative;
+  color: var(--text-dark);
+}
+.answer-list li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  color: var(--green-primary);
+  font-weight: 800;
+  font-size: 18px;
+}
+.answer-cta {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(39, 174, 96, 0.2);
+  font-style: italic;
+}
+.answer-cta a {
+  color: var(--green-dark);
+  font-weight: 700;
+}
+
+/* ============================================
+   TABLE OF CONTENTS
+   ============================================ */
+.toc {
+  background: var(--bg-light);
+  border-radius: 8px;
+  padding: 24px 32px;
+  margin: 30px 0;
+}
+.toc h2 {
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+  font-weight: 700;
+}
+.toc ol {
+  padding-left: 22px;
+}
+.toc li {
+  padding: 5px 0;
+}
+.toc a {
+  color: var(--text-dark);
+  text-decoration: none;
+  font-weight: 500;
+}
+.toc a:hover { color: var(--green-primary); }
+
+/* ============================================
+   SECTIONS & RECIPES
+   ============================================ */
+.intro { margin: 30px 0; }
+.intro p { margin-bottom: 16px; }
+
+.section {
+  margin: 50px 0;
+}
+.section h2 {
+  font-size: 28px;
+  color: var(--green-primary);
+  margin-bottom: 24px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  border-bottom: 3px solid var(--green-primary);
+  padding-bottom: 10px;
+  display: inline-block;
+}
+
+.recipe {
+  background: var(--white);
+  border: 1px solid var(--border-light);
+  border-radius: 10px;
+  padding: 28px 30px;
+  margin-bottom: 22px;
+  transition: box-shadow 0.2s;
+}
+.recipe:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+}
+.recipe h3 {
+  color: var(--orange-primary);
+  font-size: 22px;
+  margin-bottom: 14px;
+  font-weight: 700;
+}
+.recipe h4 {
+  color: var(--text-dark);
+  font-size: 15px;
+  margin: 18px 0 8px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.recipe p { margin-bottom: 12px; }
+.recipe ul {
+  list-style: none;
+  margin: 8px 0;
+}
+.recipe ul li {
+  padding: 5px 0 5px 22px;
+  position: relative;
+  font-size: 15px;
+}
+.recipe ul li::before {
+  content: "•";
+  position: absolute;
+  left: 4px;
+  color: var(--orange-primary);
+  font-weight: 800;
+  font-size: 18px;
+  top: 3px;
+}
+
+.recipe-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  background: var(--orange-light);
+  padding: 12px 18px;
+  border-radius: 6px;
+  margin: 12px 0 18px;
+  font-size: 14px;
+  color: var(--text-dark);
+}
+
+.recipe-link {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--border-light);
+  font-size: 15px;
+}
+.recipe-link a {
+  color: var(--green-primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+.recipe-link a:hover {
+  text-decoration: underline;
+  color: var(--green-dark);
+}
+
+/* ============================================
+   COMPARISON TABLE (GEO best practice)
+   ============================================ */
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  background: var(--white);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.comparison-table thead {
+  background: var(--green-primary);
+  color: var(--white);
+}
+.comparison-table th {
+  padding: 14px 16px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.comparison-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border-light);
+  font-size: 15px;
+}
+.comparison-table tbody tr:hover {
+  background: var(--bg-light);
+}
+.comparison-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ============================================
+   CTA QUITOQUE
+   ============================================ */
+.cta-box {
+  background: linear-gradient(135deg, var(--green-primary) 0%, var(--green-dark) 100%);
+  color: var(--white);
+  border-radius: 12px;
+  padding: 40px 36px;
+  margin: 50px 0;
+  text-align: center;
+}
+.cta-box h2 {
+  color: var(--white);
+  font-size: 26px;
+  margin-bottom: 16px;
+  font-weight: 700;
+}
+.cta-box p {
+  font-size: 16px;
+  margin-bottom: 20px;
+  opacity: 0.95;
+}
+.cta-bullets {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 30px;
+  margin: 20px 0 28px;
+  text-align: left;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.cta-bullets li {
+  padding: 6px 0 6px 28px;
+  position: relative;
+  font-size: 15px;
+}
+.cta-bullets li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 6px;
+  color: #ffd54f;
+  font-weight: 800;
+}
+.btn-cta {
+  display: inline-block;
+  background: var(--white);
+  color: var(--green-dark);
+  padding: 14px 36px;
+  border-radius: 8px;
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 16px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.btn-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+/* ============================================
+   FAQ (GEO best practice)
+   ============================================ */
+.faq h2 {
+  border-bottom: 3px solid var(--orange-primary);
+  color: var(--orange-primary);
+}
+.faq-item {
+  background: var(--white);
+  border: 1px solid var(--border-light);
+  border-left: 4px solid var(--orange-primary);
+  border-radius: 6px;
+  padding: 22px 26px;
+  margin-bottom: 14px;
+}
+.faq-item h3 {
+  color: var(--text-dark);
+  font-size: 18px;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+.faq-item p {
+  color: var(--text-body);
+  margin: 0;
+  font-size: 15px;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.site-footer {
+  background: var(--text-dark);
+  color: var(--white);
+  padding: 24px 0;
+  text-align: center;
+  font-size: 13px;
+  margin-top: 60px;
+}
+.site-footer a {
+  color: var(--white);
+  text-decoration: none;
+  margin: 0 8px;
+  opacity: 0.8;
+}
+.site-footer a:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+  .article-header h1 { font-size: 28px; }
+  .section h2 { font-size: 22px; }
+  .recipe h3 { font-size: 19px; }
+  .answer-box, .toc, .recipe, .cta-box, .faq-item { padding: 20px; }
+  .main-nav { display: none; }
+  .recipe-meta { flex-direction: column; gap: 6px; }
+  .cta-bullets { grid-template-columns: 1fr; }
+  .comparison-table { font-size: 13px; }
+  .comparison-table th, .comparison-table td { padding: 10px 8px; }
+}
